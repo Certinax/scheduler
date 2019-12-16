@@ -1,6 +1,6 @@
 # Scheduler
 
-Final exam internet programming CST:325 @ CSU Monterey Bay Fall 2019
+Final exam internet programming CST:336 @ CSU Monterey Bay Fall 2019
 
 # ERD for this project
 
