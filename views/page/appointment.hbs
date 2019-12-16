@@ -5,8 +5,9 @@
   <br>
   <p class="darkFont">Your appointment link</p>
   <div class="md-form input-group mb-3">
-    <input type="text" class="form-control" id="inviteURL" value="{{inviteKey}}" readonly
-      aria-label="Recipient's username" aria-describedby="MaterialButton-addon2">
+    <input type="text" class="form-control" id="inviteURL"
+      value="https://scheduler-final.herokuapp.com/schedule/{{inviteKey}}" readonly aria-label="Recipient's username"
+      aria-describedby="MaterialButton-addon2">
     <div class="input-group-append">
       <button class="btn btn-md btn-warning m-0 px-3" type="button" id="copyKey">Copy</button>
     </div>
@@ -45,21 +46,23 @@
       <!--Body-->
       <div class="modal-body mb-1">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col">
             <div class="md-form mb-5">
               <i class="mdi mdi-calendar prefix grey-text"></i>
-              <input type="text" id="startDate" class="form-control">
+              <input type="date" id="startDate" class="form-control">
               <label for="startDate">Date</label>
             </div>
           </div>
-          <div class="col-sm-4">
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
             <div class="md-form mb-5">
               <i class="mdi mdi-clock prefix grey-text"></i>
               <input type="time" id="startTime" class="form-control">
               <label for="startTime">Start time</label>
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <div class="md-form mb-5">
               <i class="mdi mdi-clock prefix grey-text"></i>
               <input type="time" id="endTime" class="form-control">

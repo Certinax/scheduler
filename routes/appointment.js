@@ -67,7 +67,7 @@ router.post("/create", function(req, res) {
 router.get("/getAppointments", function(req, res) {
   if (req.session.userId && req.session.name) {
     const sql =
-      "SELECT A.*, TIMESTAMPDIFF(HOUR, A.start_time, A.end_time) AS duration FROM `appointment` as A WHERE A.owner = ? AND start_time >= date(curdate() - INTERVAL 8 HOUR) ORDER BY start_time;";
+      "SELECT A.*, TIMESTAMPDIFF(MINUTE, A.start_time, A.end_time) AS duration FROM `appointment` as A WHERE A.owner = ? AND start_time >= date(curdate() - INTERVAL 8 HOUR) ORDER BY start_time;";
 
     const connection = createConnection();
 
@@ -83,10 +83,9 @@ router.get("/getAppointments", function(req, res) {
         results.map(appointment => {
           // Formatting sql date object into YYYY-MM-DD format
           appointment.date = dateConverter(appointment.start_time);
-          appointment.start_time = extractTime(appointment.start_time);
-          appointment.end_time = extractTime(appointment.end_time);
+          appointment.start_time = appointment.start_time.toLocaleTimeString();
+          appointment.end_time = appointment.end_time.toLocaleTimeString();
         });
-        console.log(results);
         res.json({
           success: true,
           data: results
@@ -148,8 +147,8 @@ router.get("/:id", function(req, res) {
       } else if (results.length === 1) {
         results.map(appointment => {
           appointment.date = dateConverter(appointment.start_time);
-          appointment.start_time = extractTime(appointment.start_time);
-          appointment.end_time = extractTime(appointment.end_time);
+          appointment.start_time = appointment.start_time.toLocaleTimeString();
+          appointment.end_time = appointment.end_time.toLocaleTimeString();
         });
         res.json({
           success: true,

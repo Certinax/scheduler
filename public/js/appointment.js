@@ -52,7 +52,6 @@ function createAppointment() {
       endTime: $("#endTime").val()
     }),
     success: function(result) {
-      console.log(result);
       if (result.success) {
         $("#modalNew").modal("toggle");
         getAppointments();
@@ -73,7 +72,6 @@ function getAppointments() {
     dataType: "json",
     contentType: "application/json",
     success: function(result) {
-      console.log(result);
       if (result.success) {
         result.data.forEach(appointment => {
           displayAppointment(appointment);
@@ -94,7 +92,7 @@ function displayAppointment(appointment) {
     <tr>
       <td>${date}</td>
       <td>${start_time}</td>
-      <td>${duration} hours</td>
+      <td>${duration} minutes</td>
       <td>${booked_by}</td>
       <td>
         <button id="${id}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#confirmModal">Delete</button>
@@ -114,7 +112,6 @@ function deleteAppointment() {
       appointmentId: $("#appointmentId").html()
     }),
     success: function(result) {
-      console.log(result);
       if (result.success) {
         getAppointments();
       } else {
@@ -133,7 +130,6 @@ function getSpecificAppointment(id) {
     dataType: "json",
     contentType: "application/json",
     success: function(result) {
-      console.log("KOMMER HIT?", result);
       if (result.success) {
         populateDeleteModal(result.data[0]);
       } else {
@@ -146,7 +142,6 @@ function getSpecificAppointment(id) {
 }
 
 function populateDeleteModal(appointment) {
-  console.log("POPULATION: ", appointment);
   const { date, start_time, end_time } = appointment;
 
   $("#startTimeDel").text(date + " " + start_time);
