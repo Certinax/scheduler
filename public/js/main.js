@@ -1,16 +1,46 @@
 $(document).ready(() => {
   $("#createToggler").on("click", () => {
     $("#signin").toggle();
+    $("#signinFeedback").empty();
+  });
+
+  $("#signin").on("click", () => {
+    if (loginValidation()) {
+      signin();
+    } else {
+      $("#signinFeedback").empty();
+      $("#signinFeedback").html("All fields required");
+    }
+  });
+
+  $("#create").on("click", () => {
+    if (createValidation()) {
+      create();
+    } else {
+      $("#signinFeedback").empty();
+      $("#signinFeedback").html("All fields required");
+    }
   });
 
   $("#modalSignIn").keyup(e => {
     if (e.keyCode === 13) {
       if ($("#signin").is(":visible")) {
-        console.log("Signin...");
-        signin();
+        if (loginValidation()) {
+          console.log("Signin...");
+          signin();
+        } else {
+          $("#signinFeedback").empty();
+          $("#signinFeedback").html("All fields required");
+        }
       } else if ($("#signin").is(":hidden")) {
-        console.log("Create user...");
-        create();
+        console.log("Create");
+        if (createValidation()) {
+          console.log("Create user...");
+          create();
+        } else {
+          $("#signinFeedback").empty();
+          $("#signinFeedback").html("All fields required");
+        }
       }
     }
   });
@@ -23,6 +53,8 @@ $(document).ready(() => {
     copyURL();
   });
 });
+
+function enter() {}
 
 function signin() {
   $.ajax({
@@ -39,6 +71,8 @@ function signin() {
       if (result.success) {
         $("#modalSignIn").modal("toggle");
         window.location.reload();
+      } else {
+        $("#signinFeedback").html(result.message);
       }
     },
     error: function(err) {
@@ -64,6 +98,8 @@ function create() {
       if (result.success) {
         $("#modalSignIn").modal("toggle");
         window.location.reload();
+      } else {
+        $("#signinFeedback").html(result.message);
       }
     },
     error: function(err) {
@@ -97,6 +133,29 @@ function copyURL() {
   copyText.setSelectionRange(0, 99999); /*For mobile devices*/
 
   document.execCommand("copy");
+}
 
-  // alert("Copied the text: " + copyText.value);
+function createValidation() {
+  const inputs = $("#modalSignIn").find("input");
+  let valid = true;
+  inputs.map(input => {
+    if ($(inputs[input]).val() === "") {
+      valid = false;
+      return valid;
+    }
+  });
+  return valid;
+}
+
+function loginValidation() {
+  let valid = true;
+  if ($("#username").val() === "") {
+    valid = false;
+    return valid;
+  }
+  if ($("#password").val() === "") {
+    valid = false;
+    return valid;
+  }
+  return valid;
 }

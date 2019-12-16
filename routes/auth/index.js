@@ -21,7 +21,7 @@ router.post("/login", function(req, res) {
         message: "Credentials doesn't match"
       });
     }
-    if (results) {
+    if (results.length === 1) {
       bcrypt.compare(password, results[0].password, function(err, result) {
         if (err) throw err;
         if (result) {
@@ -38,6 +38,11 @@ router.post("/login", function(req, res) {
             message: "Wrong password!"
           });
         }
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "User does not exist!"
       });
     }
   });
