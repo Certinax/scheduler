@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 const createConnection = require("../../db/database");
 const mysql = require("mysql2");
-
+var uniqid = require("uniqid");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 router.post("/login", function(req, res) {
   const { email, password } = req.body;
   req.session.lok = "FRA LOGIN";
-  const sql = "SELECT id, firstname, password FROM user WHERE email = ?";
+  const sql =
+    "SELECT id, firstname, password, invite_key FROM user WHERE email = ?";
 
   const connection = createConnection();
 
@@ -26,6 +27,7 @@ router.post("/login", function(req, res) {
         if (result) {
           req.session.userId = results[0].id;
           req.session.name = results[0].firstname;
+          req.session.inviteKey = results[0].invite_key;
           res.json({
             success: true,
             message: "Login successful"
@@ -45,12 +47,13 @@ router.post("/login", function(req, res) {
 router.post("/create", function(req, res) {
   const { email, firstname, lastname, password } = req.body;
 
+  const inviteKey = uniqid();
+
   bcrypt.hash(password, saltRounds, function(err, hash) {
-    console.log(hash);
-    const insert = [email, firstname, lastname, hash];
+    const insert = [email, firstname, lastname, hash, inviteKey];
 
     let sql =
-      "INSERT INTO user (email, firstname, lastname, password) VALUES (?)";
+      "INSERT INTO user (email, firstname, lastname, password, invite_key) VALUES (?)";
     sql = mysql.format(sql, [insert]);
 
     const connection = createConnection();

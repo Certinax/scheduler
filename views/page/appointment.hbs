@@ -3,6 +3,15 @@
   <p>Welcome {{username}}</p>
   <hr>
   <br>
+  <p class="darkFont">Your appointment link</p>
+  <div class="md-form input-group mb-3">
+    <input type="text" class="form-control" id="inviteURL" value="{{inviteKey}}" readonly
+      aria-label="Recipient's username" aria-describedby="MaterialButton-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-md btn-warning m-0 px-3" type="button" id="copyKey">Copy</button>
+    </div>
+  </div>
+
   <table class="table table-striped">
     <thead class="darkBackground lightFont">
       <tr>
@@ -17,26 +26,7 @@
       </tr>
     </thead>
     <tbody id="tableBod" class="darkFont">
-      <tr>
-        <td>22-03-2019</td>
-        <td>10:00</td>
-        <td>2 hours</td>
-        <td>Thora Mothes</td>
-        <td>
-          <button class="btn btn-primary btn-sm">Edit</button>
-          <button class="btn btn-primary btn-sm">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <td>22-03-2019</td>
-        <td>10:00</td>
-        <td>2 hours</td>
-        <td>Thora Mothes</td>
-        <td>
-          <button class="btn btn-primary btn-sm">Edit</button>
-          <button class="btn btn-primary btn-sm">Delete</button>
-        </td>
-      </tr>
+
     </tbody>
   </table>
 </div>
@@ -65,17 +55,18 @@
           <div class="col-sm-4">
             <div class="md-form mb-5">
               <i class="mdi mdi-clock prefix grey-text"></i>
-              <input type="text" id="startTime" class="form-control">
+              <input type="time" id="startTime" class="form-control">
               <label for="startTime">Start time</label>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="md-form mb-5">
               <i class="mdi mdi-clock prefix grey-text"></i>
-              <input type="text" id="endTime" class="form-control">
+              <input type="time" id="endTime" class="form-control">
               <label for="endTime">End time</label>
             </div>
           </div>
+          <div id="appointmentFeedback" class="darkFont"></div>
         </div>
 
       </div>
@@ -112,6 +103,38 @@
           <h5 id="deleteSuccess" class="text-success"></h5>
           <div id="deleteFailed">
             <h5 id="" class="text-danger">Delete Failed</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Confirm modal --}}
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Delete</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="text-center">
+          <p>Appointment id</p>
+          <p id="appointmentId"></p>
+          <p>Start time:</p>
+          <p id="startTimeDel"></p>
+          <p>End time:</p>
+          <p id="endTimeDel"></p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <div class="text-center mt-4">
+            <button type="button" id="confirmDelete" class="btn btn-primary btn-sm lightFont" data-dismiss="modal"><span
+                class="lightFont signupFont">Yes, remove it</span></button>
+            <button type="button" class="btn btn-danger btn-sm lightFont" data-dismiss="modal"><span
+                class="lightFont signupFont">Cancel</span></button>
           </div>
         </div>
       </div>

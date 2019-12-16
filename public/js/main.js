@@ -18,6 +18,10 @@ $(document).ready(() => {
   $("#logout").on("click", () => {
     logout();
   });
+
+  $("#copyKey").on("click", () => {
+    copyURL();
+  });
 });
 
 function signin() {
@@ -84,4 +88,15 @@ function logout() {
       console.log(err);
     }
   });
+}
+
+function copyURL() {
+  var copyText = document.getElementById("inviteURL");
+
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  document.execCommand("copy");
+
+  // alert("Copied the text: " + copyText.value);
 }
