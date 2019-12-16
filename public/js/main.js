@@ -26,16 +26,13 @@ $(document).ready(() => {
     if (e.keyCode === 13) {
       if ($("#signin").is(":visible")) {
         if (loginValidation()) {
-          console.log("Signin...");
           signin();
         } else {
           $("#signinFeedback").empty();
           $("#signinFeedback").html("All fields required");
         }
       } else if ($("#signin").is(":hidden")) {
-        console.log("Create");
         if (createValidation()) {
-          console.log("Create user...");
           create();
         } else {
           $("#signinFeedback").empty();
@@ -67,7 +64,6 @@ function signin() {
       password: $("#password").val()
     }),
     success: function(result) {
-      console.log(result);
       if (result.success) {
         $("#modalSignIn").modal("toggle");
         window.location.reload();
@@ -94,7 +90,6 @@ function create() {
       lastname: $("#lastname").val()
     }),
     success: function(result) {
-      console.log(result);
       if (result.success) {
         $("#modalSignIn").modal("toggle");
         window.location.reload();
@@ -115,7 +110,6 @@ function logout() {
     dataType: "json",
     contentType: "application/json",
     success: function(result) {
-      console.log(result);
       if (result.success) {
         window.location.reload();
       }
