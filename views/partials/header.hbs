@@ -6,14 +6,24 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">About<span class="sr-only">(current)</span></a>
+            {{#if username}}
+            <li class="nav-item {{#if appointment}}active{{/if}}">
+                <a class="nav-link" href="/appointment">Appointment</a>
             </li>
-            <li class="nav-item">
+            {{/if}}
+            <li class="nav-item {{#if about}}active{{/if}}">
+                <a class="nav-link" href="/">About</a>
+            </li>
+            <li class="nav-item {{#if rubric}}active{{/if}}">
                 <a class="nav-link" href="/">Rubric</a>
             </li>
+
         </ul>
+        {{#if username}}
+        <button id="logout" class="btn btn-sm btn-danger">Log out</button>
+        {{else}}
         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalSignIn">Log in</button>
+        {{/if}}
     </div>
 </nav>
 
@@ -41,10 +51,22 @@
                 <div class="text-center md-form mb-4">
                     <p class="overdueRed" id="feedbkSignin"></p>
                 </div>
-                <div class="md-form mb-5 collapse creation" id="createUser">
-                    <i class="mdi mdi-lock prefix grey-text"></i>
-                    <input type="password" id="rePassword" class="form-control validate" autocomplete="off">
-                    <label data-error="Required field" data-success="" for="rePassword">Re-enter password</label>
+                <div class="collapse creation" id="createUser">
+                    <div class="md-form mb-5">
+                        <i class="mdi mdi-lock prefix grey-text"></i>
+                        <input type="password" id="rePassword" class="form-control validate" autocomplete="off">
+                        <label data-error="Required field" data-success="" for="rePassword">Re-enter password</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="mdi mdi-account prefix grey-text"></i>
+                        <input type="text" id="firstname" class="form-control validate" autocomplete="off">
+                        <label data-error="Required field" data-success="" for="firstname">Firstname</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="mdi mdi-account prefix grey-text"></i>
+                        <input type="text" id="lastname" class="form-control validate" autocomplete="off">
+                        <label data-error="Required field" data-success="" for="lastname">Lastname</label>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">

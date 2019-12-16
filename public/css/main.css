@@ -25,7 +25,11 @@ body {
 }
 
 h1 {
-  color: green;
+  color: var(--backgroundBlue);
+}
+
+p {
+  color: var(--backgroundBlue);
 }
 
 a {

@@ -3,6 +3,8 @@ const hbs = require("hbs");
 const path = require("path");
 const createError = require("http-errors");
 const session = require("express-session");
+const dotenv = require("dotenv");
+dotenv.config();
 
 // Register partials for hbs
 hbs.registerPartials(__dirname + "/views/partials");
